@@ -1,34 +1,104 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [selectedChat, setSelectedChat] = useState(null);
+  const [messages, setMessages] = useState([]);
+
+  const chats = [
+    { 
+      id: 1, 
+      name: 'John', 
+      messages: [
+        { id: 1, text: 'Hey, what\'s up?' },
+        { id: 2, text: 'Not much, how about you?' },
+        // Add more messages as needed
+      ]
+    },
+    { 
+      id: 2, 
+      name: 'Jane', 
+      messages: [
+        { id: 1, text: 'Can\'t wait to see you!' },
+        { id: 2, text: 'Me too! When are you free?' },
+        // Add more messages as needed
+      ]
+    },
+    { 
+      id: 3, 
+      name: 'Bob', 
+      messages: [
+        { id: 1, text: 'Let\'s grab lunch tomorrow.' },
+        { id: 2, text: 'Sure, where do you want to go?' },
+        // Add more messages as needed
+      ]
+    },
+    // Add more chat objects as needed
+  ];
+
+  function handleChatClick(chatId) {
+    setSelectedChat(chatId);
+  }
+
+  function handleSendMessage(message) {
+    setMessages([...messages, message]);
+  }
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="chats">
+        {chats.map(chat => (
+          <div 
+            key={chat.id} 
+            className={`chat ${chat.id === selectedChat ? 'active' : ''}`} 
+            onClick={() => handleChatClick(chat.id)}
+          >
+            <div className="name">{chat.name}</div>
+            <div className="last-message">{chat.messages.length > 0 ? chat.messages[chat.messages.length - 1].text : ''}</div>
+          </div>
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="conversation">
+        {selectedChat ? (
+          <>
+            <div className="messages">
+              {chats.find(chat => chat.id === selectedChat).messages.map((message, index) => (
+                <div key={message.id} className="message">
+                  {message.text}
+                </div>
+              ))}
+            </div>
+            <MessageInput onSendMessage={handleSendMessage} />
+          </>
+        ) : (
+          <div className="select-chat">Select a chat to start messaging</div>
+        )}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
-  )
+  );
 }
 
-export default App
+function MessageInput({ onSendMessage }) {
+  const [message, setMessage] = useState('');
+
+  function handleInputChange(event) {
+    setMessage(event.target.value);
+  }
+
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    if (message) {
+      onSendMessage({ id: Date.now(), text: message });
+      setMessage('');
+    }
+  }
+
+  return (
+    <form onSubmit={handleFormSubmit} className="message-input">
+      <input type="text" value={message} onChange={handleInputChange} placeholder="Type a message..." />
+      <button type="submit">Send</button>
+    </form>
+  );
+}
+
+export default App;
