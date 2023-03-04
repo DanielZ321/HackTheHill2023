@@ -14,6 +14,8 @@
 }
 
 .messages {
+  height: 600px; /* Change the value to your desired fixed height */
+  overflow: auto;
   margin-bottom: 1rem;
 }
 
