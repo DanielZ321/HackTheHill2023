@@ -8,12 +8,16 @@ body {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 form {
   margin-top: 20px;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 input[type="text"] {
@@ -23,28 +27,29 @@ input[type="text"] {
   border-radius: 5px;
   padding: 5px;
   font-size: 16px;
+  color: black;
 }
 
-button[type="submit"] {
+button[type="submit"],
+button[type="button"],
+button.signout {
   height: 30px;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
-  background-color: #1e90ff;
+  background-color: blue;
   color: white;
   font-size: 16px;
   margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
 }
 
-button[type="button"] {
-  height: 30px;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  background-color: #1e90ff;
-  color: white;
-  font-size: 16px;
-  margin-left: 10px;
+button.signout {
+  margin-left: auto;
 }
 
 ul {
