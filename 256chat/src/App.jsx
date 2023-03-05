@@ -96,33 +96,33 @@ function App() {
 
   return (
     <div className="App">
-    <header>
-    <h1>Chat Room</h1>
-    {user ? (
-    <button onClick={handleSignOut}>Sign Out</button>
-    ) : (
-    <button onClick={handleSignIn}>Sign In with Google</button>
-    )}
-    </header>
-    <div className="container">
-    {user ? (
-    <div>
-    <form onSubmit={handleSubmit}>
-    <input type="text" value={newMessage} onChange={handleInputChange} placeholder="Type a message..." />
-    <button type="submit">Send</button>
-    </form>
-    <ul>
-    {messages.map((message) => (
-    <li key={message.createdAt}>
-    <strong>{message.user.displayName}</strong>: {message.text}
-    </li>
-    ))}
-    </ul>
-    </div>
-    ) : (
-    <p>Please sign in to view and send messages.</p>
-    )}
-    </div>
+      <header>
+        <h1>Chat Room</h1>
+        {user ? (
+          <button onClick={handleSignOut}>Sign Out</button>
+        ) : (
+          <button onClick={handleSignIn}>Sign In with Google</button>
+        )}
+      </header>
+      <div className="container">
+        {user ? (
+          <div>
+            <ul>
+              {messages.map((message) => (
+                <li key={message.createdAt}>
+                  <strong>{message.user.displayName}</strong>: {message.text}
+                </li>
+              ))}
+            </ul>
+            <form onSubmit={handleSubmit}>
+              <input type="text" value={newMessage} onChange={handleInputChange} placeholder="Type a message..." />
+              <button type="submit">Send</button>
+            </form>
+          </div>
+        ) : (
+          <p>Please sign in to view and send messages.</p>
+        )}
+      </div>
     </div>
     );
     }
