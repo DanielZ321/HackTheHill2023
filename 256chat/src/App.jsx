@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+import { AES, enc } from 'crypto-js';
 
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, signOut } from 'firebase/auth';
@@ -79,7 +80,7 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const messageObject = {
-      text: newMessage,
+      text: AES.encrypt(newMessage, 'testkey').toString(),
       user: {
         uid: user.uid,
         displayName: user.displayName
@@ -110,16 +111,14 @@ function App() {
       </header>
       <div className="container" id="textcontainer">
         {user ? (
-          <div>
             <ul>
               {messages.map((message) => (
                 <li key={message.createdAt}>
-                  <strong>{message.user.displayName}</strong>: {message.text}
+                  <strong>{message.user.displayName}</strong>: {AES.decrypt(message.text, 'testkey').toString(enc.Utf8)}
                 </li>
               ))}
             </ul>
 
-          </div>
         ) : (
           <p>Please sign in to view and send messages.</p>
         )}
