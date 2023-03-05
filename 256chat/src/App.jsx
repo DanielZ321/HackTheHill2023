@@ -9,7 +9,7 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import * as qrcode from 'qrcode';
 import * as qrgenerator from 'qrcode-generator';
 
-const firebaseConfig = {  
+const firebaseConfig = {
   apiKey: "AIzaSyBFaE2v0KsbQzkLdLvcJt5HGUkrsvD20lA",
   authDomain: "chatapp-80847.firebaseapp.com",
   projectId: "chatapp-80847",
@@ -88,6 +88,10 @@ function App() {
     };
     push(ref(database, 'messages'), messageObject);
     setNewMessage('');
+
+    var objDiv = document.getElementById("textcontainer");
+    objDiv.scrollTop = objDiv.scrollHeight;
+
   };
 
   const handleInputChange = (e) => {
@@ -104,7 +108,7 @@ function App() {
           <button onClick={handleSignIn}>Sign In with Google</button>
         )}
       </header>
-      <div className="container">
+      <div className="container" id="textcontainer">
         {user ? (
           <div>
             <ul>
@@ -114,17 +118,21 @@ function App() {
                 </li>
               ))}
             </ul>
-            <form onSubmit={handleSubmit}>
-              <input type="text" value={newMessage} onChange={handleInputChange} placeholder="Type a message..." />
-              <button type="submit">Send</button>
-            </form>
+
           </div>
         ) : (
           <p>Please sign in to view and send messages.</p>
         )}
       </div>
+      <div className="formcontainer">
+        <form onSubmit={handleSubmit}>
+          <input type="text" value={newMessage} onChange={handleInputChange} placeholder="Type a message..." />
+          <button type="submit">Send</button>
+        </form>
+      </div>
+
     </div>
-    );
-    }
-    
-    export default App;
+  );
+}
+
+export default App;
