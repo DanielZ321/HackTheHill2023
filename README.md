@@ -1,4 +1,4 @@
-##Welcome to 256Chat
+## Welcome to 256Chat
 A chat room encrypted with AES-256! 
 
 # Running the app
