@@ -11,13 +11,7 @@ import * as qrcode from 'qrcode';
 import * as qrgenerator from 'qrcode-generator';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBFaE2v0KsbQzkLdLvcJt5HGUkrsvD20lA",
-  authDomain: "chatapp-80847.firebaseapp.com",
-  projectId: "chatapp-80847",
-  storageBucket: "chatapp-80847.appspot.com",
-  messagingSenderId: "132817232542",
-  appId: "1:132817232542:web:387ffb22e4c3dca2a6118f",
-  measurementId: "G-Y31WESCL1C"
+  // Hey there
 };
 
 const app = initializeApp(firebaseConfig);
